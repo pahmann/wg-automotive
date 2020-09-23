@@ -1,0 +1,25 @@
+'SPDX-License-Identifier: CC-BY-4.0
+@startuml
+skinparam componentStyle rectangle
+package "trigger"{ 
+[Telltale Requester]
+[Ignition]
+[Battery]
+}
+package "SoC" {
+  [Watchdog] -- [Cluster Controller]
+  [Cluster Controller] --> [Image Generator] 
+  [Image Generator] --> [Cluster Controller]
+ 
+  [Cluster Controller] <-l- [Telltale Requester]
+  [Cluster Controller] <-l- [Ignition]
+  [Cluster Controller] <-l- [Battery]
+}
+package "Display" {
+  [Display IC] <- [Image Generator] : image
+  [Display IC] <- [Cluster Controller] : Safety line
+  [TFT] -> [Display IC] : Diagnostics
+  [TFT] <- [Display IC] : Image
+  [Backlight] <-- [Cluster Controller]
+}
+@enduml
