@@ -9,7 +9,6 @@ package "trigger"{
 [Battery]
 }
 package "SoC" {
-  [Watchdog] -u- [Cluster Controller]
   [Cluster Controller] -up-> [Image Generator] 
   [Image Generator] -down-> [Cluster Controller]
  
@@ -25,4 +24,5 @@ package "Display" {
   [TFT] <- [Display IC] : Image
   [Backlight] <-- [Cluster Controller]: backlight\nkill line
 }
+[Watchdog] -u- [Cluster Controller]
 @enduml
